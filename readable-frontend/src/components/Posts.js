@@ -7,7 +7,19 @@ import Comment from "./Comment";
 const styles = {
 	container: {
 		display: 'flex',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		flex: 1
+	},
+	post: {
+		// flex: 1,
+		border: '5px solid purple',
+		display: 'flex',
+		// justifyContent: 'center',
+		alignItems: 'center',
+		'textAlign': 'left',
+		'flexDirection': 'column',
+		'padding': 20,
+		'margin': 20
 	}
 }
 
@@ -25,20 +37,16 @@ class Posts extends Component {
 				<h2>Posts</h2>
 				<div style={styles.container}>
 				{posts.map(post => (
-					<div key={post.id}>
-						{JSON.stringify({post})}
-						{post.title}
+					<div style={styles.post} key={post.id}>
+						Title: {post.title}
 						<br/>
-						{post.body}
+						Body: {post.body}
 						<br/>
-						{post.author}
+						Author: {post.author}
 						<br/>
-						{post.timestamp}
-						<br/>
-						{post.commentCount}
-						<br/>
-						<li>{post.id}</li>
-						<Comment postId={post.id} />
+						Time: {post.timestamp}
+						<Comment style={{flex:1}} postId={post.id} />
+
 					</div>
 				))}
 				</div>

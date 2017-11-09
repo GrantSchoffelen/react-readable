@@ -14,16 +14,16 @@ const defaultData = {
     deleted: false,
     parentDeleted: false
   },
-  "894tuq4ut84ut8v4t8wun89f": {
-    id: '894tuq4ut84ut8v4t8wun89f',
-    parentId: "6ni6ok3ym7mf1p33lnez",
-    timestamp: 1468166872634,
-    body: 'comment 3',
-    author: 'thingthree',
-    voteScore: 6,
-    deleted: false,
-    parentDeleted: false
-  },
+  // "894tuq4ut84ut8v4t8wun89f": {
+  //   id: '894tuq4ut84ut8v4t8wun89f',
+  //   parentId: "6ni6ok3ym7mf1p33lnez",
+  //   timestamp: 1468166872634,
+  //   body: 'comment 3',
+  //   author: 'thingthree',
+  //   voteScore: 6,
+  //   deleted: false,
+  //   parentDeleted: false
+  // },
   "8tu4bsun805n8un48ve89": {
     id: '8tu4bsun805n8un48ve89',
     parentId: "8xf0y6ziyjabvozdd253nd",
