@@ -12,7 +12,7 @@ import Category from "./components/Category";
 class App extends Component {
 	componentDidMount() {
 		this.props.getAllCategories();
-		this.props.getAllPosts()
+		// this.props.getAllPosts();
 	}
 
 	render() {
@@ -33,10 +33,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-	const { categories, posts } = state;
+	const { categories } = state;
 	return {
 		categories,
-		posts
 	};
 }
 

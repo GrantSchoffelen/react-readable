@@ -13,6 +13,7 @@ export const getAllCategories = () => {
 
 export const getPosts = category => {
 	const endPoint = category ? `${category}/posts` : `posts`;
+	console.log(endPoint)
 	return fetch(`${apiUrl}/${endPoint}`, { headers })
 		.then(res => res.json())
 		.then(data => data);
