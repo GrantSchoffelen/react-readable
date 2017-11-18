@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getComments } from "../actions/comment";
+import { getComments, postCommentVote } from "../actions/comment";
+import { withRouter } from 'react-router-dom'
+import FontAwesome from 'react-fontawesome';
 
 
 const styles={
@@ -9,33 +11,30 @@ const styles={
 		margin: 10,
 		padding: 20
 	},
-	comment: {
-		flex: 1,
-		display: 'flex'
-	}
 
 }
 
 class Comment extends Component {
 	componentDidMount() {
 		const postId = this.props.postId;
-		this.props.getComments(postId);
+		this.props.getComments(postId)
 	}
 	render() {
 		const { comments } = this.props;
+		console.log(comments, 'comments')
 		return (
 			<div>
 				<h5>Comments {comments.length}</h5>
 				{comments.map(comment =>
                      (<div style={styles.commentsContainer} key={comment.id}>
-						 <div style={{justifyContent: 'flex-end'}}>
+						 <div style={{display: 'flex', justifyContent: 'space-between'}}>
 							 <span style={{fontWeight: 'bold'}}>{comment.author}</span>
-							 <span style={{color: 'grey'}}>{comment.timestamp}</span>
+							 <span style={{color: 'grey'}}>{new Date(comment.timestamp).toDateString()}</span>
 						 </div>
-						 <div style={styles.comment}>
-							 <div>{comment.body}</div>
-						 </div>
+							 <div style={{padding: 10}}>{comment.body}</div>
 						  <div>{comment.voteScore}</div>
+						  <button onClick={()=>(this.props.postCommentVote(comment.id, 'upVote'))}><FontAwesome color="black" name='thumbs-up' /></button>
+						  <button onClick={()=>(this.props.postCommentVote(comment.id, 'downVote'))}><FontAwesome color="black" name='thumbs-down' /></button>
                     </div>)
                 )}
 			</div>
@@ -49,10 +48,6 @@ function mapStateToProps(state) {
 		comments
 	};
 }
-function mapDispatchToProps(dispatch) {
-	return {
-		getComments: postId => dispatch(getComments(postId))
-	};
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comment);
+
+export default withRouter(connect(mapStateToProps, {getComments, postCommentVote})(Comment));

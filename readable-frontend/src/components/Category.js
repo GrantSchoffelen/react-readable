@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Posts from "./Posts";
+import {connect} from 'react-redux'
+ import { withRouter } from "react-router-dom";
+ import PostList from '../components/PostList'
 
 class Category extends Component {
 	render() {
@@ -7,10 +9,10 @@ class Category extends Component {
 		return (
 			<div>
 				<h1>{category}</h1>
-				<Posts category={category} />
+				<PostList category={category} />
 			</div>
 		);
 	}
 }
 
-export default Category;
+export default withRouter(connect()(Category));
