@@ -37,7 +37,7 @@ const styles = {
 class PostList extends Component {
 	componentDidMount() {
 		const { category } = this.props;
-		this.props.getAllPosts(category);
+		this.props.getAllPosts(category).then(data => (console.log(data)));
 	}
      componentWillReceiveProps(nextProps) {
        if (nextProps.category !== this.props.category) {
@@ -49,10 +49,10 @@ class PostList extends Component {
 		 // this.props.sortAecTime()
 	 }
 	render() {
-		console.log('hit render comp')
 		const { posts } = this.props;
+		console.log(posts)
 		return (
-			<div>Sort: 
+			<div>Sort:
 				<button onClick={()=>{this.props.sortAecTime()}}>Aec Time</button>
 				<button onClick={()=>{this.props.sortDecTime()}}>Dec Time</button>
 				<button onClick={()=>{this.props.sortAecVote()}}>Aec vote</button>

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { getSinglePost } from "../actions/post";
+import { getSinglePost, deletePost } from "../actions/post";
 import { createComment, deleteComment } from "../actions/comment";
 import { connect } from "react-redux";
 import Comment from "./Comment";
-import serializeForm from 'form-serialize'
+import serializeForm from 'form-serialize';
+import {Link} from 'react-router-dom';
 // import { Switch, Route, withRouter } from "react-router-dom";
 
 
@@ -31,6 +32,12 @@ const styles = {
 class Post extends Component {
 	componentDidMount() {
 		this.props.getSinglePost(this.props.match.params.postId)
+		.then((data) => {
+			if(data.post.id === undefined){
+				this.props.history.push("/")
+			}
+		});
+
 	}
 
 	handleEvent = e => {
@@ -40,6 +47,11 @@ class Post extends Component {
 		this.props.createComment(comment)
 		.then(this.props.getSinglePost(this.props.match.params.postId))
 
+	}
+	handleDelete = (postId) => {
+		this.props.deletePost(postId)
+			.then(data => console.log(data))
+			.then(this.props.history.push("/"))
 	}
      // componentWillReceiveProps(nextProps) {
      //   if (nextProps.posts !== this.props.posts) {
@@ -64,6 +76,8 @@ class Post extends Component {
 								Author: {post.author}
 								<br/>
 								Time: {post.timestamp}
+								<button onClick={()=>(this.handleDelete(post.id))}>delete</button>
+								<Link to={`/post/edit/${post.id}`}> Edit </Link>
 								<Comment style={{flex:1}} postId={post.id} />
 							</div>)
 						}
@@ -101,4 +115,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {getSinglePost, createComment, deleteComment})(Post);
+export default connect(mapStateToProps, {getSinglePost, createComment, deleteComment, deletePost})(Post);

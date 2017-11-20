@@ -22,9 +22,8 @@ export const getAllCategories = () => {
 
 export const getPosts = category => {
 	const endPoint = category ? `${category}/posts` : `posts`;
-	return fetch(`${apiUrl}/${endPoint}`, { headers })
-		.then(res => res.json())
-		.then(data => data);
+	return client.get(`${apiUrl}/${endPoint}`)
+		.then(data => data.data);
 };
 
 export const getSinglePost = (postId) =>{
