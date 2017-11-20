@@ -8,12 +8,48 @@ export const GET_POST = "GET_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
 
+export const SORT_AEC_TIME = "SORT_AEC_TIME";
+export const SORT_DEC_TIME = "SORT_DEC_TIME"
+
+export const SORT_AEC_VOTE = "SORT_AEC_VOTE";
+export const SORT_DEC_VOTE = "SORT_DEC_VOTE";
+
+
+export function sortDecVote() {
+  return {
+    type : SORT_DEC_VOTE,
+
+  }
+}
+
+export function sortAecVote() {
+  return {
+    type : SORT_AEC_VOTE,
+
+  }
+}
+
+export const sortDecTime = () => dispatch => {
+    console.log('hits')
+  return dispatch ({
+    type : SORT_DEC_TIME,
+    })
+}
+
+export function sortAecTime() {
+  return {
+    type : SORT_AEC_TIME,
+
+  }
+}
+
 function getPosts(posts) {
 	return {
 		type: GET_POSTS,
 		posts
 	};
 }
+
 
 function deletePostComplete(postId){
 	return {

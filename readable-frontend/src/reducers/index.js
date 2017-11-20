@@ -1,6 +1,16 @@
 import { GET_ALL_CATEGORIES } from "../actions/category";
-import { GET_POSTS, POST_VOTE, GET_POST, DELETE_POST } from "../actions/post";
-import { GET_COMMENTS, POST_COMMENT_VOTE, CREATE_COMMENT } from "../actions/comment";
+import {
+	GET_POSTS,
+	POST_VOTE,
+	GET_POST,
+	DELETE_POST,
+	SORT_AEC_TIME,
+	SORT_DEC_TIME,
+	SORT_AEC_VOTE,
+	SORT_DEC_VOTE,
+
+} from "../actions/post";
+import { GET_COMMENTS, POST_COMMENT_VOTE, CREATE_COMMENT, DELETE_COMMENT, UPDATE_COMMENT } from "../actions/comment";
 import { combineReducers } from "redux";
 
 function categories(state = [], action) {
@@ -36,6 +46,38 @@ function posts(state = [], action) {
 				  return post.id !== action.postId
 			  })
 		  }
+		  case SORT_AEC_TIME: {
+			  var newState = state.slice()
+			  newState.sort((a,b)=>{
+				  return a.timestamp - b.timestamp
+			  });
+			  return newState
+
+
+		  }
+		  case SORT_DEC_TIME: {
+			  var newState = state.slice()
+				 newState.sort((a,b)=>{
+					 return b.timestamp - a.timestamp
+				 });
+				 return newState
+		  }
+		  case SORT_AEC_VOTE: {
+			  var newState = state.slice()
+			  newState.sort((a,b)=>{
+				  return a.voteScore - b.voteScore
+			  });
+			  return newState
+
+
+		  }
+		  case SORT_DEC_VOTE: {
+			  var newState = state.slice()
+				 newState.sort((a,b)=>{
+					 return b.voteScore - a.voteScore
+				 });
+				 return newState
+		  }
 		default: {
 			return state;
 		}
@@ -57,10 +99,22 @@ function comments(state=[], action){
   	      	})
 		}
 		case CREATE_COMMENT:{
-			console.log(action.comment)
 			return state.find(i => i.id === action.comment.id)
 			  ? [...state]
-			  : [...state, action.comment,];
+			  : [...state, action.comment];
+		}
+		case DELETE_COMMENT: {
+			return state.filter((comment)=>{
+				return comment.id !== action.commentId
+			})
+		}
+		case UPDATE_COMMENT: {
+			return state.map(comment=>{
+				if(comment.id === action.comment.id){
+					return action.comment
+				}
+				return comment
+			})
 		}
 		default: {
 			return state;

@@ -5,10 +5,6 @@ import serializeForm from 'form-serialize'
 import { addPost, getSinglePost, updatePost } from '../actions/post'
 
 class NewPost extends Component {
-	onPostSubmit = () => {
-		// this.props.addPost({ values });
-		// this.props.history.push("/");
-	};
 
 	componentDidMount(){
 		if(this.props.match.params.id){
@@ -44,6 +40,7 @@ class NewPost extends Component {
 			if(post.id === this.props.match.params.id){
 				return post;
 			}
+			return false
 		})[0];
 
 		// if(currentPost === undefined){

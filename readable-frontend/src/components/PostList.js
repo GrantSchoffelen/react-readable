@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { getAllPosts, postVote, deletePost } from "../actions/post";
+import {
+	getAllPosts,
+	postVote,
+	deletePost,
+	sortAecTime,
+	sortDecTime,
+	sortAecVote,
+	sortDecVote
+} from "../actions/post";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 
@@ -27,9 +35,6 @@ const styles = {
 
 
 class PostList extends Component {
-    onPostSubmit = (str) => {
-        console.log(str)
-    }
 	componentDidMount() {
 		const { category } = this.props;
 		this.props.getAllPosts(category);
@@ -39,10 +44,19 @@ class PostList extends Component {
          this.props.getAllPosts(nextProps.category);
        }
      }
+
+	 sortUp(){
+		 // this.props.sortAecTime()
+	 }
 	render() {
+		console.log('hit render comp')
 		const { posts } = this.props;
 		return (
-			<div>
+			<div>Sort: 
+				<button onClick={()=>{this.props.sortAecTime()}}>Aec Time</button>
+				<button onClick={()=>{this.props.sortDecTime()}}>Dec Time</button>
+				<button onClick={()=>{this.props.sortAecVote()}}>Aec vote</button>
+				<button onClick={()=>{this.props.sortDecVote()}}>Dec vote</button>
 				<div style={styles.container}>
 				{posts.map(post => (
 					<div style={styles.post} key={post.id}>
@@ -80,12 +94,13 @@ function mapStateToProps(state) {
 	};
 }
 
-function mapDispatchToProps(dispatch) {
-	return {
-		getAllPosts: category => dispatch(getAllPosts(category)),
-        postVote: (vote, postId) => dispatch(postVote(vote, postId)),
-		deletePost: (postId) => dispatch(deletePost(postId))
-	};
-}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostList));
+export default withRouter(connect(mapStateToProps, {
+	getAllPosts,
+	postVote,
+	deletePost,
+	sortAecTime,
+	sortDecTime,
+	sortAecVote,
+	sortDecVote
+})(PostList));

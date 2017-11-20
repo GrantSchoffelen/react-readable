@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getSinglePost } from "../actions/post";
-import { createComment } from "../actions/comment";
+import { createComment, deleteComment } from "../actions/comment";
 import { connect } from "react-redux";
 import Comment from "./Comment";
 import serializeForm from 'form-serialize'
@@ -19,7 +19,6 @@ const styles = {
 		'flexDirection': 'column',
 		flex: 1,
 		border: '5px solid purple',
-		display: 'flex',
 		// justifyContent: 'center',
 		alignItems: 'center',
 		'textAlign': 'left',
@@ -66,7 +65,6 @@ class Post extends Component {
 								<br/>
 								Time: {post.timestamp}
 								<Comment style={{flex:1}} postId={post.id} />
-
 							</div>)
 						}
 				})}
@@ -103,4 +101,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {getSinglePost, createComment})(Post);
+export default connect(mapStateToProps, {getSinglePost, createComment, deleteComment})(Post);

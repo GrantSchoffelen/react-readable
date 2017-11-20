@@ -50,6 +50,12 @@ export const updatePost = (post) => {
   	.then(data => data.data)
 }
 
+export const updateComment = (comment) => {
+	console.log('hitsz', comment)
+  return client.put(`${apiUrl}/comments/${comment.id}`, comment)
+  	.then(data => data.data)
+}
+
 export const deletePost = (postId)=>{
 	return client.delete(`${apiUrl}/posts/${postId}`)
 	.then(data=> data.data)
@@ -81,3 +87,8 @@ export const createPost = (post) => {
 	return client.post(`${apiUrl}/posts`, post)
 		.then(data => data.data);
 };
+
+export const deleteComment =(commentId) =>{
+	return client.delete(`${apiUrl}/comments/${commentId}`)
+	.then(data => data.data.id)
+}
